@@ -11,7 +11,7 @@ import androidx.lifecycle.Observer;
 /**
  * Created by Tanvir on 14/12/20.
  */
-class InternetConnectionChecker {
+public  class InternetConnectionChecker {
         NetworkStatusModel model;
         NetworkStatusViewmodel viewmodel;
 
@@ -33,7 +33,7 @@ class InternetConnectionChecker {
             viewmodel = this.ViewModelProviders.of(this).get(NetworkStatusViewmodel.class);
         }*/
 
-    public void networkEnableDisable(boolean status, Context context, NetworkStatusModel model){
+    public static void networkEnableDisable(boolean status, Context context, NetworkStatusModel model){
         model.networkEnableDisable(status, context, new NetWorkStatusListeners<Boolean>() {
             @Override
             public void status(boolean st) {
