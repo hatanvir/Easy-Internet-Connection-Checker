@@ -8,13 +8,13 @@ import com.tvr.internetConnectionChecker.features.model.NetworkStatusModelImplem
 import com.tvr.internetConnectionChecker.features.viewmodel.NetworkStatusViewmodel;
 
 import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 
 /**
  * Created by Tanvir on 14/12/20.
  */
 public class InternetConnectionChecker {
         NetworkStatusModel model;
-        NetworkStatusViewmodel viewmodel;
 
       /*  viewmodel.networkEnableDisable(true,this,model);
 
@@ -54,18 +54,16 @@ public class InternetConnectionChecker {
         });
     }*/
 
-    public static void register(Context context){
-        new NetworkStatusModelImplementation(context).register(context, new NetWorkStatusListeners<Boolean>() {
+
+    public static NetworkStatusModelImplementation register(Context context){
+
+        return new NetworkStatusModelImplementation(context);/*.register(context, new NetWorkStatusListeners<Boolean>() {
             @Override
             public void status(boolean st) {
                 getConnectionStatus(st);
                 Toast.makeText(context, ""+st, Toast.LENGTH_SHORT).show();
             }
-        });
-    }
-
-    public static boolean getConnectionStatus(boolean b){
-        return b;
+        });*/
     }
     public static void unRegister(Context context){
         NetworkStatusModel model = new NetworkStatusModelImplementation(context);
