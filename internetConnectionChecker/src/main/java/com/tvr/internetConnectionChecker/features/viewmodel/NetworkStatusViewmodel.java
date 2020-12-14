@@ -23,7 +23,7 @@ public class NetworkStatusViewmodel extends ViewModel {
         });
     }*/
 
-    static void register(Context context, NetworkStatusModel model){
+    public static void register(Context context, NetworkStatusModel model){
         /*model.register(context, new NetWorkStatusListeners<Boolean>() {
             @Override
             public void status(boolean st) {
