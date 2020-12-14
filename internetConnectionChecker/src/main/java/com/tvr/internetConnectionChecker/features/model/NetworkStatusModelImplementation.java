@@ -14,9 +14,9 @@ import com.tvr.internetConnectionChecker.NetWorkStatusListeners;
  * Created by Tanvir on 14/12/20.
  */
 public class NetworkStatusModelImplementation extends BroadcastReceiver implements NetworkStatusModel{
-    Context context;
+     Context context;
 
-    public NetworkStatusModelImplementation(Context context) {
+    public  NetworkStatusModelImplementation(Context context) {
         this.context = context;
     }
 
