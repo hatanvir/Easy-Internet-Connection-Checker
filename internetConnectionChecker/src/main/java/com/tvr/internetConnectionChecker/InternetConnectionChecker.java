@@ -4,6 +4,7 @@ import android.content.Context;
 import android.widget.Toast;
 
 import com.tvr.internetConnectionChecker.features.model.NetworkStatusModel;
+import com.tvr.internetConnectionChecker.features.model.NetworkStatusModelImplementation;
 import com.tvr.internetConnectionChecker.features.viewmodel.NetworkStatusViewmodel;
 
 import androidx.lifecycle.Observer;
@@ -33,7 +34,8 @@ public  class InternetConnectionChecker {
             viewmodel = this.ViewModelProviders.of(this).get(NetworkStatusViewmodel.class);
         }*/
 
-    public static void networkEnableDisable(boolean status, Context context, NetworkStatusModel model){
+    public static void networkEnableDisable(boolean status, Context context){
+        NetworkStatusModel model = new NetworkStatusModelImplementation(context);
         model.networkEnableDisable(status, context, new NetWorkStatusListeners<Boolean>() {
             @Override
             public void status(boolean st) {
