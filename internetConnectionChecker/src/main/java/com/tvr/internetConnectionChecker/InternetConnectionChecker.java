@@ -60,6 +60,7 @@ public class InternetConnectionChecker {
         model.register(context, new NetWorkStatusListeners<Boolean>() {
             @Override
             public void status(boolean st) {
+                Toast.makeText(context, ""+st, Toast.LENGTH_SHORT).show();
                  status = st;
             }
         });
