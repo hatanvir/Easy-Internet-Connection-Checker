@@ -12,7 +12,7 @@ import androidx.lifecycle.Observer;
 /**
  * Created by Tanvir on 14/12/20.
  */
-public  class InternetConnectionChecker {
+public class InternetConnectionChecker {
         NetworkStatusModel model;
         NetworkStatusViewmodel viewmodel;
 
@@ -34,7 +34,7 @@ public  class InternetConnectionChecker {
             viewmodel = this.ViewModelProviders.of(this).get(NetworkStatusViewmodel.class);
         }*/
 
-    public static void networkEnableDisable(boolean status, Context context){
+    /*public static void networkEnableDisable(boolean status, Context context){
         NetworkStatusModel model = new NetworkStatusModelImplementation(context);
         model.networkEnableDisable(status, context, new NetWorkStatusListeners<Boolean>() {
             @Override
@@ -42,5 +42,28 @@ public  class InternetConnectionChecker {
                 Toast.makeText(context, "Connected"+st, Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    public static boolean register(Context context){
+        NetworkStatusModel model = new NetworkStatusModelImplementation(context);
+        model.register(context, new NetWorkStatusListeners<Boolean>() {
+            @Override
+            public void status(boolean st) {
+                return true;
+            }
+        });
+    }*/
+
+    public static boolean register(Context context, NetworkStatusModel model){
+        model.register(context, new NetWorkStatusListeners<Boolean>() {
+            @Override
+            public boolean status(boolean st) {
+                return st;
+            }
+        });
+        return false;
+    }
+    public static void unRegister(Context context, NetworkStatusModel model){
+        model.unRegister(context);
     }
 }

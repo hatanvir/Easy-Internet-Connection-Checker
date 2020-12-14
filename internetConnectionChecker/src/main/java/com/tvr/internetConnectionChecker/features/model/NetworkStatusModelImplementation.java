@@ -23,26 +23,11 @@ public class NetworkStatusModelImplementation extends BroadcastReceiver implemen
     NetWorkStatusListeners<Boolean> netWorkStatusListeners;
 
     @Override
-    public void networkEnableDisable(boolean status, Context context, NetWorkStatusListeners<Boolean> netWorkStatusListeners) {
-        if(status){
-            this.netWorkStatusListeners = netWorkStatusListeners;
-            context.registerReceiver(this,new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION));
-        }else {
-            this.netWorkStatusListeners = netWorkStatusListeners;
-            context.unregisterReceiver(this);
-        }
-    }
-
-    @Override
     public void onReceive(Context context, Intent intent) {
         if(isConnected(context)){
             netWorkStatusListeners.status(true);
         }else {
             netWorkStatusListeners.status(false);
-            //status.setValue(false);
-            Toast.makeText(context, "false", Toast.LENGTH_SHORT).show();
-            // Utils.setStatus(false);
-            bb = false;
         }
     }
 
@@ -62,5 +47,18 @@ public class NetworkStatusModelImplementation extends BroadcastReceiver implemen
         }catch (Exception e){
             return  false;
         }
+    }
+
+    @Override
+    public void register(Context context, NetWorkStatusListeners<Boolean> netWorkStatusListeners) {
+        this.netWorkStatusListeners = netWorkStatusListeners;
+        context.registerReceiver(this,new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION));
+    }
+
+    @Override
+    public void unRegister(Context context) {
+       try{
+           context.unregisterReceiver(this);
+       }catch (Exception e){}
     }
 }
