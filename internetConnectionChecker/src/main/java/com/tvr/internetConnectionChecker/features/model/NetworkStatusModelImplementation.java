@@ -58,7 +58,11 @@ public class NetworkStatusModelImplementation extends BroadcastReceiver implemen
     @Override
     public void unRegister(Context context) {
        //try{
-           context.unregisterReceiver(this);
+
       // }catch (Exception e){}
+
+        if(this!=null){
+            context.unregisterReceiver(this);
+        }
     }
 }
