@@ -15,56 +15,10 @@ import androidx.lifecycle.ViewModelProvider;
  */
 public class InternetConnectionChecker {
         NetworkStatusModel model;
-
-      /*  viewmodel.networkEnableDisable(true,this,model);
-
-        viewmodel.networkStatus.observe(this, new Observer<Boolean>() {
-        @Override
-        public void onChanged(Boolean aBoolean) {
-            if(aBoolean){
-                Toast.makeText(MainActivity.this, "Connected", Toast.LENGTH_SHORT).show();
-            }else {
-                Toast.makeText(MainActivity.this, "Not connected", Toast.LENGTH_SHORT).show();
-            }
-        }
-    });*/
-
-        /*void startDetect(){
-            model = new NetworkStatusModelImplementation(this);
-            viewmodel = this.ViewModelProviders.of(this).get(NetworkStatusViewmodel.class);
-        }*/
-
-    /*public static void networkEnableDisable(boolean status, Context context){
-        NetworkStatusModel model = new NetworkStatusModelImplementation(context);
-        model.networkEnableDisable(status, context, new NetWorkStatusListeners<Boolean>() {
-            @Override
-            public void status(boolean st) {
-                Toast.makeText(context, "Connected"+st, Toast.LENGTH_SHORT).show();
-            }
-        });
+    public static NetworkStatusModelImplementation getRegister(Context context){
+        return new NetworkStatusModelImplementation(context);
     }
 
-    public static boolean register(Context context){
-        NetworkStatusModel model = new NetworkStatusModelImplementation(context);
-        model.register(context, new NetWorkStatusListeners<Boolean>() {
-            @Override
-            public void status(boolean st) {
-                return true;
-            }
-        });
-    }*/
-
-
-    public static NetworkStatusModelImplementation register(Context context){
-
-        return new NetworkStatusModelImplementation(context);/*.register(context, new NetWorkStatusListeners<Boolean>() {
-            @Override
-            public void status(boolean st) {
-                getConnectionStatus(st);
-                Toast.makeText(context, ""+st, Toast.LENGTH_SHORT).show();
-            }
-        });*/
-    }
     public static void unRegister(Context context){
         NetworkStatusModel model = new NetworkStatusModelImplementation(context);
         model.unRegister(context);

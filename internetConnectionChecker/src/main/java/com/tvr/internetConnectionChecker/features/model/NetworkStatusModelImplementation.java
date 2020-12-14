@@ -14,8 +14,8 @@ import com.tvr.internetConnectionChecker.NetWorkStatusListeners;
  * Created by Tanvir on 14/12/20.
  */
 public class NetworkStatusModelImplementation extends BroadcastReceiver implements NetworkStatusModel{
-     Context context;
 
+    Context context;
     public  NetworkStatusModelImplementation(Context context) {
         this.context = context;
     }
@@ -32,7 +32,6 @@ public class NetworkStatusModelImplementation extends BroadcastReceiver implemen
     }
 
 
-    boolean bb;
     private boolean isConnected(Context context) {
         try{
             ConnectivityManager connectivityManager = (ConnectivityManager)
@@ -57,10 +56,6 @@ public class NetworkStatusModelImplementation extends BroadcastReceiver implemen
 
     @Override
     public void unRegister(Context context) {
-       //try{
-
-      // }catch (Exception e){}
-
         if(this!=null){
             context.unregisterReceiver(this);
         }
