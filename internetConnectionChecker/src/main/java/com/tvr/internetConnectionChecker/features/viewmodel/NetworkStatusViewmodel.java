@@ -27,8 +27,8 @@ public class NetworkStatusViewmodel extends ViewModel {
         model.register(context, new NetWorkStatusListeners<Boolean>() {
             @Override
             public boolean status(boolean st) {
-
-                return false;
+                 networkStatus.postValue(st);
+                 return true;
             }
         });
     }
