@@ -53,21 +53,19 @@ public class InternetConnectionChecker {
             }
         });
     }*/
-    static boolean status;
 
     public static void register(Context context){
         NetworkStatusModel model = new NetworkStatusModelImplementation(context);
         model.register(context, new NetWorkStatusListeners<Boolean>() {
             @Override
             public void status(boolean st) {
-                Toast.makeText(context, ""+st, Toast.LENGTH_SHORT).show();
-                 status = st;
+                getConnectionStatus(st);
             }
         });
     }
 
-    public static boolean getConnectionStatus(){
-        return status;
+    public static boolean getConnectionStatus(boolean b){
+        return b;
     }
     public static void unRegister(Context context){
         NetworkStatusModel model = new NetworkStatusModelImplementation(context);
