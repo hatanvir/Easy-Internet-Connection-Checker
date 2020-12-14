@@ -10,14 +10,14 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.InternetConnectionDetect">
+        <activity android:name=".MainActivity"></activity>
         <activity android:name="com.tvr.internetConnectionChecker.features.view.MainActivity">
-            <intent-filter >
+            <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
     </application>
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />

@@ -53,16 +53,20 @@ public class InternetConnectionChecker {
             }
         });
     }*/
+    static boolean status;
 
-    public static boolean register(Context context){
+    public static void register(Context context){
         NetworkStatusModel model = new NetworkStatusModelImplementation(context);
         model.register(context, new NetWorkStatusListeners<Boolean>() {
             @Override
-            public boolean status(boolean st) {
-                return st;
+            public void status(boolean st) {
+                 status = st;
             }
         });
-        return false;
+    }
+
+    public static boolean getConnectionStatus(){
+        return status;
     }
     public static void unRegister(Context context){
         NetworkStatusModel model = new NetworkStatusModelImplementation(context);
