@@ -16,16 +16,21 @@ import androidx.lifecycle.ViewModelProvider;
 public class InternetConnectionChecker {
         NetworkStatusModel model;
 
-    public static NetworkStatusModelImplementation getRegister(Context context){
+   /* public static NetworkStatusModelImplementation getRegister(Context context){
 
-        return new NetworkStatusModelImplementation(context);/*.register(context, new NetWorkStatusListeners<Boolean>() {
+        return new NetworkStatusModelImplementation(context);*//*.register(context, new NetWorkStatusListeners<Boolean>() {
             @Override
             public void status(boolean st) {
                 getConnectionStatus(st);
                 Toast.makeText(context, ""+st, Toast.LENGTH_SHORT).show();
             }
-        });*/
+        });*//*
+    }*/
+
+    public static NetworkStatusModelImplementation getRegister(Context context){
+        return new NetworkStatusModelImplementation(context);
     }
+
     public static void unRegister(Context context){
         NetworkStatusModel model = new NetworkStatusModelImplementation(context);
         model.unRegister(context);

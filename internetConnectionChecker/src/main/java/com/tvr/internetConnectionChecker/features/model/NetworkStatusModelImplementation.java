@@ -69,9 +69,5 @@ public class NetworkStatusModelImplementation implements NetworkStatusModel{
        try{
            context.unregisterReceiver(broadcastReceiver);
        }catch (Exception e){}
-
-//        if(this!=null){
-//            context.unregisterReceiver(broadcastReceiver);
-//        }
     }
 }
