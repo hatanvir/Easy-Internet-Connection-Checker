@@ -13,7 +13,7 @@ import com.tvr.internetConnectionChecker.NetWorkStatusListeners;
 /**
  * Created by Tanvir on 14/12/20.
  */
-public class NetworkStatusModelImplementation extends BroadcastReceiver implements NetworkStatusModel{
+public class NetworkStatusModelImplementation implements NetworkStatusModel{
      Context context;
 
     public  NetworkStatusModelImplementation(Context context) {
@@ -22,17 +22,26 @@ public class NetworkStatusModelImplementation extends BroadcastReceiver implemen
 
     NetWorkStatusListeners<Boolean> netWorkStatusListeners;
 
-    @Override
+    /*@Override
     public void onReceive(Context context, Intent intent) {
         if(isConnected(context)){
             netWorkStatusListeners.status(true);
         }else {
             netWorkStatusListeners.status(false);
         }
-    }
+    }*/
+    BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            if(isConnected(context)){
+                netWorkStatusListeners.status(true);
+            }else {
+                netWorkStatusListeners.status(false);
+            }
+        }
+    };
 
 
-    boolean bb;
     private boolean isConnected(Context context) {
         try{
             ConnectivityManager connectivityManager = (ConnectivityManager)
@@ -52,17 +61,17 @@ public class NetworkStatusModelImplementation extends BroadcastReceiver implemen
     @Override
     public void register(Context context, NetWorkStatusListeners<Boolean> netWorkStatusListeners) {
         this.netWorkStatusListeners = netWorkStatusListeners;
-        context.registerReceiver(this,new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION));
+        context.registerReceiver(broadcastReceiver,new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION));
     }
 
     @Override
     public void unRegister(Context context) {
-       //try{
+       try{
+           context.unregisterReceiver(broadcastReceiver);
+       }catch (Exception e){}
 
-      // }catch (Exception e){}
-
-        if(this!=null){
-            context.unregisterReceiver(this);
-        }
+//        if(this!=null){
+//            context.unregisterReceiver(broadcastReceiver);
+//        }
     }
 }

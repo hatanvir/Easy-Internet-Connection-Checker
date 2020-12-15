@@ -11,6 +11,7 @@ import androidx.lifecycle.ViewModel;
 /**
  * Created by Tanvir on 14/12/20.
  */
+
 public class NetworkStatusViewmodel extends ViewModel {
     public MutableLiveData<Boolean> networkStatus = new MutableLiveData<>();
 
