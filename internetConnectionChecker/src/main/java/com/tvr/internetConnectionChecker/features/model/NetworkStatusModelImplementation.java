@@ -66,8 +66,8 @@ public class NetworkStatusModelImplementation implements NetworkStatusModel{
 
     @Override
     public void unRegister(Context context) {
-       try{
+      // try{
            context.unregisterReceiver(broadcastReceiver);
-       }catch (Exception e){}
+      // }catch (Exception e){}
     }
 }

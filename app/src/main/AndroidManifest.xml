@@ -10,14 +10,19 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.InternetConnectionDetect">
-        <activity android:name=".MainActivity"></activity>
-        <activity android:name="com.tvr.internetConnectionChecker.features.view.MainActivity">
+        <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+      <!--  <receiver android:name=".NetworkReceiver">
+        <intent-filter>
+            <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
+        </intent-filter>
+        </receiver>-->
     </application>
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
