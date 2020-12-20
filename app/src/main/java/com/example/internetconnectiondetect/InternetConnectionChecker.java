@@ -1,38 +1,55 @@
 package com.example.internetconnectiondetect;
 
+import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 
-import com.example.internetconnectiondetect.features.model.NetworkStatusModel;
-import com.example.internetconnectiondetect.features.model.NetworkStatusModelImplementation;
 
 /**
  * Created by Tanvir on 14/12/20.
  */
-public class InternetConnectionChecker {
-        NetworkStatusModel model;
 
-   /* public static NetworkStatusModelImplementation getRegister(Context context){
+public class InternetConnectionChecker extends BroadcastReceiver implements NetworkStatusModel {
+     Context context;
 
-        return new NetworkStatusModelImplementation(context);*//*.register(context, new NetWorkStatusListeners<Boolean>() {
-            @Override
-            public void status(boolean st) {
-                getConnectionStatus(st);
-                Toast.makeText(context, ""+st, Toast.LENGTH_SHORT).show();
-            }
-        });*//*
-    }*/
-
-    public static NetworkStatusModelImplementation getRegister(Context context){
-        return new NetworkStatusModelImplementation(context);
+    public InternetConnectionChecker(Context context) {
+        this.context = context;
     }
 
-    public static NetworkStatusModelImplementation unRegister(Context context){
-        return new NetworkStatusModelImplementation(context);
-        //model.unRegister(context);
+    NetWorkStatusListeners<Boolean> netWorkStatusListeners;
+
+    @Override
+    public void onReceive(Context context, Intent intent) {
+        netWorkStatusListeners.status(isConnected(context));
     }
 
-    public static NetworkStatusModelImplementation status(Context context){
-        return new NetworkStatusModelImplementation(context);
+    private boolean isConnected(Context context) {
+        try{
+            ConnectivityManager connectivityManager = (ConnectivityManager)
+                    context.getSystemService(Context.CONNECTIVITY_SERVICE);
+
+            NetworkInfo activeNetwork = connectivityManager.getActiveNetworkInfo();
+
+            return activeNetwork != null && activeNetwork.isConnectedOrConnecting();
+        }catch (Exception e){
+            return  false;
+        }
     }
 
+    @Override
+    public void getStatus( NetWorkStatusListeners<Boolean> netWorkStatusListeners) {
+        this.netWorkStatusListeners = netWorkStatusListeners;
+        context.registerReceiver(this,new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION));
+    }
+
+
+    @Override
+    public void unRegister() {
+       try{
+           context.unregisterReceiver(this);
+       }catch (Exception e){}
+    }
 }
