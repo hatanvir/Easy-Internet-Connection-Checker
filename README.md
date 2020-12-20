@@ -3,6 +3,9 @@
 This is a simple internet connection checker library. Made with java. Actually, I have made this for my daily use. This will help me to avoid too much boilerplate code.
 
 ## Install
+
+Set minimum sdk version to 19
+
 Add it in your root `build.gradle` at the end of repositories:
 ```gradle
 allprojects {
