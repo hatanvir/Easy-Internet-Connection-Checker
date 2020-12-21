@@ -53,7 +53,7 @@ dependencies {
        
  ```
  
- Check my library and feel free to contribute.
+ Check this library and feel free to contribute.
  
  Thanks.....
  
