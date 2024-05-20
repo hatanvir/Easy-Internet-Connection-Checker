@@ -1,3 +1,4 @@
 include ':internetConnectionChecker'
 include ':app'
 rootProject.name = "Internet Connection detect"
+include ':sample'
