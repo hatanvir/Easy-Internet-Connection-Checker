@@ -9,5 +9,5 @@ import com.tvr.internetConnectionChecker.NetWorkStatusListeners;
  */
 public interface NetworkStatusModel {
     void unRegister();
-    void getStatus(NetWorkStatusListeners<Boolean> netWorkStatusListeners);
+    void getStatus(NetWorkStatusListeners netWorkStatusListeners);
 }
