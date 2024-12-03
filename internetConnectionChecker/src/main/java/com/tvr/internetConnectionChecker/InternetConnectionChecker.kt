@@ -5,13 +5,15 @@ import android.net.ConnectivityManager
 import android.net.Network
 import android.net.NetworkCapabilities
 import android.util.Log
+import java.net.InetSocketAddress
+import java.net.Socket
 
 /**
  * Created by Tanvir on 14/12/20.
  */
 class InternetConnectionChecker(context: Context) : NetworkStatusModel,
     ConnectivityManager.NetworkCallback() {
-    private var netWorkStatusListeners: NetWorkStatusListeners? = null
+    private var networkStatusListeners: NetworkStatusListeners? = null
     private val connectivityManager =
         context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
 
@@ -34,15 +36,28 @@ class InternetConnectionChecker(context: Context) : NetworkStatusModel,
         val network = connectivityManager.activeNetwork
         if (network != null) {
             val networkCapabilities = connectivityManager.getNetworkCapabilities(network)
-            return networkCapabilities != null
-                    && networkCapabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)
-                    && networkCapabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_VALIDATED)
+            if (networkCapabilities != null
+                && networkCapabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)
+                && networkCapabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_VALIDATED)
+            ) {
+               /* Thread {
+                    try {
+                        Socket().use { socket ->
+                            socket.connect(InetSocketAddress("8.8.8.8", 53), 1500)
+                            return true
+                        }
+                    } catch (e: Exception) {
+                        return false
+                    }
+                }.start()*/
+            }
+
         }
         return false
     }
 
-    override fun getStatus(netWorkStatusListeners: NetWorkStatusListeners) {
-        this.netWorkStatusListeners = netWorkStatusListeners
+    override fun getStatus(networkStatusListeners: NetworkStatusListeners) {
+        this.networkStatusListeners = networkStatusListeners
         connectivityManager.registerDefaultNetworkCallback(this)
     }
 
@@ -56,23 +71,35 @@ class InternetConnectionChecker(context: Context) : NetworkStatusModel,
     override fun onAvailable(network: Network) {
         super.onAvailable(network)
 
-        netWorkStatusListeners?.onConnectionNetSuccess()
+        networkStatusListeners?.connected()
     }
 
     override fun onCapabilitiesChanged(network: Network, networkCapabilities: NetworkCapabilities) {
         super.onCapabilitiesChanged(network, networkCapabilities)
-        if(networkCapabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_VALIDATED)){
-            netWorkStatusListeners?.onConnectionCapableNetSuccess()
-        }else if(!networkCapabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_VALIDATED)){
-            netWorkStatusListeners?.onConnectionCapableNetFailed()
+        if (networkCapabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_VALIDATED)) {
+            Thread {
+                try {
+                    Socket().use { socket ->
+                        socket.connect(InetSocketAddress("8.8.8.8", 53), 1500)
+                        networkStatusListeners?.capable()
+                    }
+                } catch (e: Exception) {
+                    networkStatusListeners?.notCapable()
+                }
+            }.start()
+        } else if (!networkCapabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_VALIDATED)) {
+            networkStatusListeners?.notCapable()
         }
 
-        Log.d("STATUS_LIB",""+networkCapabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_VALIDATED))
+        Log.d(
+            "STATUS_LIB",
+            "" + networkCapabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_VALIDATED)
+        )
     }
 
     override fun onLost(network: Network) {
         super.onLost(network)
-        netWorkStatusListeners?.OnConnectionNetFailed()
+        networkStatusListeners?.notConnected()
     }
 
 }

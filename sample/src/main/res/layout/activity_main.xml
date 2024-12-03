@@ -29,4 +29,24 @@
         app:layout_constraintStart_toStartOf="@+id/wifi_im"
         app:layout_constraintTop_toBottomOf="@+id/wifi_im" />
 
+    <Button
+        android:id="@+id/check_connectivity_bt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="Check Connectivity"
+        android:textAllCaps="false"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/network_status_tv" />
+
+    <Button
+        android:id="@+id/check_capability_bt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Check Capability"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/check_connectivity_bt" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
