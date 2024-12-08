@@ -2,4 +2,8 @@
     <string name="app_name">Sample</string>
     <string name="tab_text_1">Tab 1</string>
     <string name="tab_text_2">Tab 2</string>
+    <string name="connected">Connected</string>
+    <string name="connected_and_able_to_access_internet">Connected and able to access internet</string>
+    <string name="connected_but_not_able_to_access_internet">Connected but not able to access internet</string>
+    <string name="connectivity_lost">Connectivity Lost</string>
 </resources>
