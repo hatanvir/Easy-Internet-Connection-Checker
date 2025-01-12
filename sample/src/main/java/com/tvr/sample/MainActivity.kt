@@ -10,6 +10,10 @@ import com.tvr.internetConnectionChecker.listeners.NetworkCapabilityListener
 import com.tvr.internetConnectionChecker.listeners.NetworkConnectivityListener
 import com.tvr.internetConnectionChecker.listeners.NetworkStatusListener
 import com.tvr.sample.databinding.ActivityMainBinding
+import java.net.InetSocketAddress
+import java.net.Socket
+import java.util.concurrent.Semaphore
+import kotlin.concurrent.thread
 
 class MainActivity : AppCompatActivity() {
 
@@ -26,14 +30,41 @@ class MainActivity : AppCompatActivity() {
 
 
         binding.checkConnectivityBt.setOnClickListener {
-            checkConnectivity()
+            val connectivity = internetChecker.isConnected()
+            Log.d("STATUS","CONNECTIVITY $connectivity")
+            Toast.makeText(this,"CONNECTIVITY $connectivity",Toast.LENGTH_SHORT).show()
         }
 
         binding.checkCapabilityBt.setOnClickListener {
-            checkConnectivity()
+            val capability = internetChecker.isCapable()
+            checkCapability()
+            Log.d("STATUS","CAPABILITY $capability")
+            Toast.makeText(this,"CAPABILITY $capability",Toast.LENGTH_SHORT).show()
         }
 
         checkConnectivity()
+
+    }
+
+    private fun checkCapability(): Boolean {
+        val semaphore = Semaphore(0)
+        var status = false
+
+        thread {
+            try {
+                Socket().use { socket ->
+                    socket.connect(InetSocketAddress("8.8.8.8", 53), 1500)//googles public DNS
+                    Log.d("CONNNNN","connected")
+                    status = true
+                }
+            } catch (_: Exception) {
+                status = false
+            }
+            semaphore.release()
+        }
+
+        semaphore.acquire()
+        return status
 
     }
 
@@ -49,8 +80,6 @@ class MainActivity : AppCompatActivity() {
                         )
                     )
                     binding.networkStatusTv.text = getString(R.string.connected)
-                    Toast.makeText(this@MainActivity,getString(R.string.connected),Toast.LENGTH_SHORT).show()
-
                 }
             }
 
@@ -65,7 +94,6 @@ class MainActivity : AppCompatActivity() {
                     )
                     binding.networkStatusTv.text =
                         getString(R.string.connected_and_able_to_access_internet)
-                    Toast.makeText(this@MainActivity,getString(R.string.connected_and_able_to_access_internet),Toast.LENGTH_SHORT).show()
 
                 }
             }
@@ -81,7 +109,6 @@ class MainActivity : AppCompatActivity() {
                     )
                     binding.networkStatusTv.text =
                         getString(R.string.connected_but_not_able_to_access_internet)
-                    Toast.makeText(this@MainActivity,getString(R.string.connected_but_not_able_to_access_internet),Toast.LENGTH_SHORT).show()
 
                 }
             }
@@ -96,10 +123,14 @@ class MainActivity : AppCompatActivity() {
                         )
                     )
                     binding.networkStatusTv.text = getString(R.string.connectivity_lost)
-                    Toast.makeText(this@MainActivity,getString(R.string.connectivity_lost),Toast.LENGTH_SHORT).show()
                 }
             }
         })
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        internetChecker.unRegister()
     }
 
 }
