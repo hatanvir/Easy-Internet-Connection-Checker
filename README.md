@@ -4,7 +4,8 @@ This is a simple internet connection checker library. Made with java and kotlin.
 
 ## Install
 
-Set minimum sdk version to 19
+Set minimum sdk version to 19 for version 1.0.1
+Set minimum sdk version to 24 for version v1.0.4
 
 Add it in your root `build.gradle` at the end of repositories:
 ```gradle
