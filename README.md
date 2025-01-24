@@ -1,6 +1,6 @@
 # Easy-Internet-Connection-Checker
 
-This is a simple internet connection checker library. Made with java. Actually, I have made this for my daily use. This will help me to avoid too much boilerplate code.
+This is a simple internet connection checker library. Made with java and kotlin. Actually, I have made this for my daily use. This will help me to avoid too much boilerplate code.
 
 ## Install
 
@@ -28,7 +28,7 @@ dependencies {
 * Unregister connecction listener
 
 
-  ## Usage (version 1.0.4)
+  ## Usage (version v1.0.4)
 
  ```kotlin
  InternetConnectionChecker implementation;
@@ -36,7 +36,7 @@ dependencies {
  //first init this
  implementation = new InternetConnectionChecker(this);
 
-//to check individualy
+//to check individually
 val connectivity = internetChecker.isConnected()
 val capability = internetChecker.isCapable()
 
