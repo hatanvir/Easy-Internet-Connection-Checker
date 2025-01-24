@@ -31,10 +31,10 @@ dependencies {
   ## Usage (version v1.0.4)
 
  ```kotlin
- InternetConnectionChecker implementation;
+ private lateinit var  internetChecker: InternetConnectionChecker
  
  //first init this
- implementation = new InternetConnectionChecker(this);
+ implementation = InternetConnectionChecker(this);
 
 //to check individually
 val connectivity = internetChecker.isConnected()
