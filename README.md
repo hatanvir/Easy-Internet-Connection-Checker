@@ -25,8 +25,8 @@ dependencies {
 
 ## Features
 * Check internet connection status
-* Check Netwoek capability status (v1.0.4)
-* Unregister connecction listener
+* Check internet capability status (v1.0.4)
+* Listen network status changes
 
 
   ## Usage (version v1.0.4)
