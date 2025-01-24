@@ -24,9 +24,50 @@ dependencies {
 
 ## Features
 * Check internet connection status
+* Check Netwoek capability status (v1.0.4)
 * Unregister connecction listener
 
-## Usage
+
+  ## Usage (version 1.0.4)
+
+ ```kotlin
+ InternetConnectionChecker implementation;
+ 
+ //first init this
+ implementation = new InternetConnectionChecker(this);
+
+//to check individualy
+val connectivity = internetChecker.isConnected()
+val capability = internetChecker.isCapable()
+
+//to listen
+ 
+ internetChecker.getStatus(object : NetworkStatusListener {
+            override fun connected() {
+                Log.d("STATUS", "CONNECTED")
+            }
+
+            override fun capable() {
+                Log.d("STATUS", "CONNECTED_AND_CAPABLE")
+            }
+
+            override fun notCapable() {
+                Log.d("STATUS", "NOT_CAPABLE")
+            }
+
+            override fun notConnected() {
+                Log.d("STATUS", "NOT_CONNECTED")
+            }
+        })
+        
+        
+        //call when app will be close
+        //call it on ondestroy or onstop
+        implementation.unRegister();
+       
+ ```
+
+## Usage (version 1.0.1)
 
  ```java
  InternetConnectionChecker implementation;
@@ -55,5 +96,5 @@ dependencies {
  
  Check this library and feel free to contribute.
  
- Thanks.....
+ Thanks
  
