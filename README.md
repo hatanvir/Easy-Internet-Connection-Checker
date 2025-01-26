@@ -34,7 +34,7 @@ dependencies {
  private lateinit var  internetChecker: InternetConnectionChecker
  
  //first init this
- implementation = InternetConnectionChecker(this);
+ internetChecker = InternetConnectionChecker(this);
 
 //to check individually
 val connectivity = internetChecker.isConnected()
