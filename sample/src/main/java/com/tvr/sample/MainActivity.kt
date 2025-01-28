@@ -10,6 +10,8 @@ import com.tvr.internetConnectionChecker.listeners.NetworkCapabilityListener
 import com.tvr.internetConnectionChecker.listeners.NetworkConnectivityListener
 import com.tvr.internetConnectionChecker.listeners.NetworkStatusListener
 import com.tvr.sample.databinding.ActivityMainBinding
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import java.net.InetSocketAddress
 import java.net.Socket
 import java.util.concurrent.Semaphore
@@ -37,34 +39,11 @@ class MainActivity : AppCompatActivity() {
 
         binding.checkCapabilityBt.setOnClickListener {
             val capability = internetChecker.isCapable()
-            checkCapability()
             Log.d("STATUS","CAPABILITY $capability")
             Toast.makeText(this,"CAPABILITY $capability",Toast.LENGTH_SHORT).show()
         }
 
         checkConnectivity()
-
-    }
-
-    private fun checkCapability(): Boolean {
-        val semaphore = Semaphore(0)
-        var status = false
-
-        thread {
-            try {
-                Socket().use { socket ->
-                    socket.connect(InetSocketAddress("8.8.8.8", 53), 1500)//googles public DNS
-                    Log.d("CONNNNN","connected")
-                    status = true
-                }
-            } catch (_: Exception) {
-                status = false
-            }
-            semaphore.release()
-        }
-
-        semaphore.acquire()
-        return status
 
     }
 
