@@ -2,6 +2,10 @@
 
 This is a simple internet connection checker library. Made with java and kotlin. Actually, I have made this for my daily use. This will help me to avoid too much boilerplate code.
 
+## Demo
+[](https://github.com/hatanvir/Easy-Internet-Connection-Checker/blob/version_1.0.2/demo.gif)
+
+
 ## Install
 
 Set minimum sdk version to 19 for version 1.0.1 and 24 for version v1.0.4
