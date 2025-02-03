@@ -68,7 +68,7 @@ val capability = internetChecker.isCapable()
         
         //call when app will be close
         //call it on ondestroy or onstop
-        implementation.unRegister();
+        internetChecker.unRegister();
        
  ```
 
